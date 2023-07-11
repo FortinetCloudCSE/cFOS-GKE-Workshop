@@ -13,7 +13,7 @@ pipeline {
 
     stages {
 
-       stage('Running FortiDevSec scans...') {
+       stage('Running FortiDevSec scans....') {
             when { expression { false } }
             steps {
                 echo "Running SAST scan..."

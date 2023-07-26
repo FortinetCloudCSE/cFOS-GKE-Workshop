@@ -1,23 +1,281 @@
 ---
-title: "Task 1 - Build Hugo page"
-menuTitle: "Hugo Build"
-chapter: false
+title: "Task 1 - Install Multus CNI"
+menuTitle: "Install Multus CNI"
 weight: 1
 ---
 
-### Hugo Build
+### Install Multus CNI
 
-When you're satisfied with Hugo view of your content in Hugo virtual server, issue a Hugo 'build' in the container CLI
+1. We need to install Multus CNI to route traffic from application POD to cFOS POD.
 
-```shell
-    hugo --minify --cleanDestinationDir
+2. By default, GKE come with default CNI which uses ptp binary with host-local ipam. 
+    * The default CNI config has name **10-containerd-net.conflist**. 
+    * When we install Multus, the default Multus config will use *"--multus-conf-file=auto"*. 
+    * With the above option, Multus will automatically create 00-multus.conf file with delegate to default 10-containerd-net.conflist. 
+
+3. we  need to change default Multus config *path: /home/kubernetes/bin* . this is because GKE only grant this directory with write permission.
+each worker node will have one Multus POD installed.
+
+{{< notice info >}}
+    For the demo application, we will use default behavior.
+{{< /notice >}}
+
+> Below command will install Multus CNI
+
 ```
-        
-   - This command "builds" your Hugo site into the container's **_/public_** folder.  We used a docker disk mount to map this folder back to your local **_/docs_** folder, so the Hugo website will automatically be copied back into your local repo
-   - flag '--cleanDestinationDir' tells hugo to re-write the entire output directory with its build, so it will clear out template files/anything else that may be in there
-   - You can now exit the container with **ctrl + cd**, or command: **'exit'**
-   - When you exit the container, any files stored or changes you made to the container will be lost and cannot be recovered
-     - **_Remember_** we edited the /content folder on our local OS, so those changes were not made to the container and will not be lost
-     - Further, the disk mount from local's **_/docs_** to Container's **_public_** AUTOMATICALLY writes the hugo build to your local OS, so those changes will not be lost
-     - If you need to continue editing, just run a new container from your built image, and run hugo's webserver.  Everything is linked properly so it should just work
-   
+file="multus_auto.yml"
+#multusconfig="/tmp/multus-conf/07-multus.conf" 
+multusconfig="auto"
+multus_bin_hostpath="/home/kubernetes/bin"
+cat << EOF > $file
+# Note:
+#   This deployment file is designed for 'quickstart' of Multus, easy installation to test it,
+#   hence this deployment yaml does not care about following things intentionally.
+#     - various configuration options
+#     - minor deployment scenario
+#     - upgrade/update/uninstall scenario
+#   Multus team understand users deployment scenarios are diverse, hence we do not cover
+#   comprehensive deployment scenario. We expect that it is covered by each platform deployment.
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: network-attachment-definitions.k8s.cni.cncf.io
+spec:
+  group: k8s.cni.cncf.io
+  scope: Namespaced
+  names:
+    plural: network-attachment-definitions
+    singular: network-attachment-definition
+    kind: NetworkAttachmentDefinition
+    shortNames:
+    - net-attach-def
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          description: 'NetworkAttachmentDefinition is a CRD schema specified by the Network Plumbing
+            Working Group to express the intent for attaching pods to one or more logical or physical
+            networks. More information available at: https://github.com/k8snetworkplumbingwg/multi-net-spec'
+          type: object
+          properties:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this represen
+                tation of an object. Servers should convert recognized schemas to the
+                latest internal value, and may reject unrecognized values. More info:
+                https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+              type: string
+            kind:
+              description: 'Kind is a string value representing the REST resource this
+                object represents. Servers may infer this from the endpoint the client
+                submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
+              description: 'NetworkAttachmentDefinition spec defines the desired state of a network attachment'
+              type: object
+              properties:
+                config:
+                  description: 'NetworkAttachmentDefinition config is a JSON-formatted CNI configuration'
+                  type: string
+---
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: multus
+rules:
+  - apiGroups: ["k8s.cni.cncf.io"]
+    resources:
+      - '*'
+    verbs:
+      - '*'
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+      - pods/status
+    verbs:
+      - get
+      - update
+  - apiGroups:
+      - ""
+      - events.k8s.io
+    resources:
+      - events
+    verbs:
+      - create
+      - patch
+      - update
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: multus
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: multus
+subjects:
+- kind: ServiceAccount
+  name: multus
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: multus
+  namespace: kube-system
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: multus-cni-config
+  namespace: kube-system
+  labels:
+    tier: node
+    app: multus
+data:
+  # NOTE: If you'd prefer to manually apply a configuration file, you may create one here.
+  # In the case you'd like to customize the Multus installation, you should change the arguments to the Multus pod
+  # change the "args" line below from
+  # - "--multus-conf-file=auto"
+  # to:
+  # "--multus-conf-file=/tmp/multus-conf/07-multus.conf"
+  # Additionally -- you should ensure that the name "07-multus.conf" is the alphabetically first name in the
+  # /etc/cni/net.d/ directory on each node, otherwise, it will not be used by the Kubelet.
+  cni-conf.json: |
+    {
+      "name": "multus-cni-network",
+      "type": "multus",
+      "capabilities": {
+        "portMappings": true
+      },
+      "delegates": [
+        {
+          "cniVersion": "0.3.1",
+          "name": "k8s-pod-network",
+          "plugins": [
+            {
+              "type": "ptp",
+              "mtu": 1460,
+              "ipam": {
+                "type": "host-local",
+                "subnet": "10.140.0.0/24",
+                "gateway": "10.140.0.1",
+                "routes": [
+                  {
+                    "dst": "10.144.0.0/20"
+                  },
+                  {
+                    "dst": "10.140.0.0/14"
+                  },
+                  {
+                    "dst": "0.0.0.0/0"
+                  }
+                 ]
+            }
+          },
+              {
+                "type": "portmap",
+                "capabilities": {
+                  "portMappings": true
+                }
+              }
+          ]
+        }
+      ],
+      "kubeconfig": "/etc/cni/net.d/multus.d/multus.kubeconfig"
+    }
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: kube-multus-ds
+  namespace: kube-system
+  labels:
+    tier: node
+    app: multus
+    name: multus
+spec:
+  selector:
+    matchLabels:
+      name: multus
+  updateStrategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        tier: node
+        app: multus
+        name: multus
+    spec:
+      hostNetwork: true
+      tolerations:
+      - operator: Exists
+        effect: NoSchedule
+      - operator: Exists
+        effect: NoExecute
+      serviceAccountName: multus
+      containers:
+      - name: kube-multus
+        image: ghcr.io/k8snetworkplumbingwg/multus-cni:v3.9.3
+        command: ["/entrypoint.sh"]
+        args:
+        - "--multus-conf-file=$multusconfig"
+        #- "--multus-conf-file=auto"
+        - "--cni-version=0.3.1"
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "50Mi"
+          limits:
+            cpu: "100m"
+            memory: "50Mi"
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: cni
+          mountPath: /host/etc/cni/net.d
+        - name: cnibin
+          mountPath: /host/opt/cni/bin
+        - name: multus-cfg
+          mountPath: /tmp/multus-conf
+      initContainers:
+        - name: install-multus-binary
+          image: ghcr.io/k8snetworkplumbingwg/multus-cni:v3.9.3
+          command:
+            - "cp"
+            - "/usr/src/multus-cni/bin/multus"
+            - "/host/opt/cni/bin/multus"
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "15Mi"
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: cnibin
+              mountPath: /host/opt/cni/bin
+              mountPropagation: Bidirectional
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: cni
+          hostPath:
+            path: /etc/cni/net.d
+        - name: cnibin
+          hostPath:
+            path: $multus_bin_hostpath
+        - name: multus-cfg
+          configMap:
+            name: multus-cni-config
+            items:
+            - key: cni-conf.json
+              path: 07-multus.conf
+EOF
+kubectl create -f $file
+kubectl rollout status ds/kube-multus-ds -n kube-system
+```
+  

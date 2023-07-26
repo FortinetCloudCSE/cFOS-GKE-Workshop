@@ -1,10 +1,11 @@
 ---
-title: "Fortinet cFOS in GKE"
+title: "Fortinet cFOS in GKE (Google Cloud)"
 chapter: true
 weight: 1
+archetype: home
 ---
 
-## Fortinet cFOS in GKE
+### Fortinet cFOS in GKE (Google Cloud)
 
 In this workshop you will learn how to deploy Fortinet's cFOS in GKE
 
@@ -26,9 +27,10 @@ The TEC Workshop will not be a completely, self-contained learning experience fo
 
 Deployments will be automated for those tasks that are not salient to the learning or demonstration activity in the use case. For example, for a TEC Workshop focused on Indicators of Compromise, the system may deploy a FortiGate and FortiAnalyzer with configurations for these systems. However, the leaner will have to configure the Event Handlers for IOC setup.  
 
-## GKE cFOS TEC Workshop
+## cFOS in GKE (Google Cloud) TEC Workshop
 
 Introduction:
+
 **cFOS** is a containerized version of FortiOS that meets the OCI(Open Container Initiative) standard, allowing it to run under Docker, container(s), and CRI-O runtimes.
 
 **cFOS** offers Layer 7 security features such as Intrusion Prevention System (IPS), DNS filtering, web filtering and SSL deep inspection. It also provides real-time security updates from FortiGuard, which help detect and prevent cyberattacks, block malicious traffic and provide secure access to resources.

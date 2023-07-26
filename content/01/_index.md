@@ -56,6 +56,5 @@ When provisioning is complete, one of the following will happen.
 
 Tasks
 
+* Validate Project & APIs
 * Setup Google Cloud Shell
-* Run Terraform
-* Verify Terraform

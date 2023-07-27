@@ -1,6 +1,5 @@
 ---
 title: "Chapter 2 - Create GKE Cluster"
-chapter: true
 menuTitle: "Chapter 2: Create GKE Cluster"
 weight: 20
 ---

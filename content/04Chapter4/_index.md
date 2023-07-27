@@ -1,6 +1,5 @@
 ---
 title: "Chapter 4 - Demo application deployment"
-chapter: true
 menuTitle: "Chapter 4 - Demo application"
 weight: 40
 ---

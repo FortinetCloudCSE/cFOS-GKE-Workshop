@@ -1,6 +1,5 @@
 ---
 title: "Chapter 5 - cFOS Installation"
-chapter: true
 menuTitle: "Chapter 5 - cFOS Installation"
 weight: 50
 ---

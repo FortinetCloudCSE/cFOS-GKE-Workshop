@@ -1,6 +1,5 @@
 ---
 title: "Chapter 3 - Multus CNI Installation"
-chapter: true
 menuTitle: "Chapter 3 - Multus CNI"
 weight: 30
 ---

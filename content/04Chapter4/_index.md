@@ -1,24 +1,18 @@
 ---
-title: "Chapter 3 - Multus CNI Installation"
+title: "Chapter 4 - Demo application deployment"
 chapter: true
-menuTitle: "Chapter 3 - Multus CNI"
-weight: 30
+menuTitle: "Chapter 4 - Demo application"
+weight: 40
 ---
 
-### Chapter 3 - Install Multus CNI
+### Chapter 4 - Create Demo application
 
 Tasks
 
-* Install Multus CNI
-* Validate Multus CNI installation
-* Create net-attach-def for cFOS
-* Validate net-attach-def
-* Create net-attach-def for application
-* Validate net-attach-def again
-
-
 * Create Demo Application deployment
-* Validate Demo Application
+* Validate Demo Application deployment
+
+
 * Create Role and Service Account for cFOS
 * Validate Role and Service Account for cFOS
 * create cfos role and service account

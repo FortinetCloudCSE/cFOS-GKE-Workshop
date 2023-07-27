@@ -1,55 +1,30 @@
 ---
-title: "Task 2 - Push content to your repo"
-menuTitle: "Git push"
-chapter: false
+title: "Task 2 - Validate Multus CNI"
+menuTitle: "Validate Multus CNI installation"
 weight: 2
 ---
 
-### Push your content to GitHubo repo
+### Validate Multus CNI installation
 
-- Finally, **from your local workstation CLI**, push the newly created Hugo site up to GitHub to automatically publish your Hugo Site
+1. Validate VPC Network
 
-   ```shell
-     git add .
-     git commit -m "<my commit message>"
-     git push 
-   ``` 
-
-- Remember we're always working in a Git Branch, so you should get in the habit of issuing a Pull request and merge [using our GitFlow procedure](gitflow.html)
-
-  {{% notice info %}} This is mostly applicable when working in a collaborative environment where multiple people may be pushing to the repo with different branches/PR to main.  Strictly speaking, if you're the only person working on this repo and/or it's your first push, this step isn't 100% necessary {{% /notice %}}
-
-  ```shell 
-            # locally checkout the main branch
-        git checkout main
-            # pull the latest version of main from GitHub to your local repo 
-        git pull
-            # locally checkout your feature branch
-        git checkout <branch>
-            # locally perform an interactive rebase which locally pull commits from main into my branch
-        git rebase main -i 
-            # push my local branch (which now includes the latest changes from GH main) up to GitHub remote
-        git push --force
-  
-        ########### WAIT FOR PR APPROVAL
     ```
-- Create a PR on GitHub, being sure to select your branch to merge with main. Wait for approval
-   
-     ![PRScreenshot](GH-PR.jpg)
-   - {{% notice info %}} You will not be able to merge the the PR until receiving approval from Jeff or Rob.  They will receive an email for review, but it's a good idea to ping them as a reminder. {{% /notice %}}
-     ![PRmergeblock](PR-mergeblocked.jpg)
-  - Once your PR is approved, checkout the main branch and perform a fast-forward merge and force push to complete the workflow.
-  
-      ```shell 
-            # locally checkout the main branch
-        git checkout main
-            # locally merge myFeatureBranch into main with a fast-forward merge scheme
-        git merge <feature branch name> --ff-only
-            # push local main (which now has myFeatureBranch merged into it) up to GitHub remote  
-            # because this push includes the merge it will auto close the PullRequest
-        git push
-      ```
-    
-- Once your PR has been approved and your code is in the **_main_** branch, GitHub actions will automatically publish the contents of **/docs** folder to GitHub Pages
-  {{% notice tip %}} Remember, Hugo's build wrote the static html pages to the **/public** directory in the container, which is mapped to your **/docs** folder in your local repo{{% /notice %}}
+    kubectl rollout status ds/kube-multus-ds -n kube-system
+    ```
 
+    ```
+    kubectl logs ds/kube-multus-ds -c kube-multus -n kube-system
+    ```
+
+    > output will be similar as below
+
+    ```
+    daemon set "kube-multus-ds" successfully rolled out
+    2023-05-18T07:41:46+00:00 Generating Multus configuration file using files in /host/etc/cni/net.d...
+    2023-05-18T07:41:47+00:00 Using MASTER_PLUGIN: 10-containerd-net.conflist
+    2023-05-18T07:41:48+00:00 Nested capabilities string: "capabilities": {"portMappings": true},
+    2023-05-18T07:41:48+00:00 Using /host/etc/cni/net.d/10-containerd-net.conflist as a source to generate the Multus configuration
+    2023-05-18T07:41:48+00:00 Config file created @ /host/etc/cni/net.d/00-multus.conf
+    { "cniVersion": "0.3.1", "name": "multus-cni-network", "type": "multus", "capabilities": {"portMappings": true}, "kubeconfig": "/etc/cni/net.d/multus.d/multus.kubeconfig", "delegates": [ { "name": "k8s-pod-network", "cniVersion": "0.3.1", "plugins": [ { "type": "ptp", "mtu": 1460, "ipam": { "type": "host-local", "subnet": "10.140.0.0/24", "routes": [ { "dst": "0.0.0.0/0" } ] } }, { "type": "portmap", "capabilities": { "portMappings": true } } ] } ] }
+    2023-05-18T07:41:48+00:00 Entering sleep (success)...
+    ```

@@ -1,0 +1,333 @@
+<!doctype html><html lang=en dir=ltr><head><meta charset=utf-8><meta name=viewport content="height=device-height,width=device-width,initial-scale=1,minimum-scale=1"><meta name=generator content="Hugo 0.107.0"><meta name=generator content="Relearn 5.12.6+tip"><meta name=description content="Hugo for Fortinet TEC Workshops"><meta name=author content="Jeff Kopko"><title>Task 11 - Install gatekeeperv3 - Hugo for Fortinet TECWorkshops</title><link href=../06chapter6/12_task11/index.xml rel=alternate type=application/rss+xml title="Task 11 - Install gatekeeperv3 - Hugo for Fortinet TECWorkshops"><link rel=icon href=https://www.fortinet.com/etc/designs/fortinet/favicon.ico type=image/x-icon><link href=../css/fontawesome-all.min.css?1690474234 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../css/fontawesome-all.min.css?1690474234 rel=stylesheet></noscript><link href=../css/nucleus.css?1690474234 rel=stylesheet><link href=../css/auto-complete.css?1690474234 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../css/auto-complete.css?1690474234 rel=stylesheet></noscript><link href=../css/perfect-scrollbar.min.css?1690474234 rel=stylesheet><link href=../css/fonts.css?1690474234 rel=stylesheet media=print onload='this.media="all",this.onload=null'><noscript><link href=../css/fonts.css?1690474234 rel=stylesheet></noscript><link href=../css/theme.css?1690474234 rel=stylesheet><link href=../css/theme-Workshop.css?1690474234 rel=stylesheet id=variant-style><link href=../css/variant.css?1690474234 rel=stylesheet><link href=../css/print.css?1690474234 rel=stylesheet media=print><link href=../css/ie.css?1690474234 rel=stylesheet><script src=../js/url.js?1690474234></script>
+<script src=../js/variant.js?1690474234></script>
+<script>window.index_json_url="../index.json",window.index_js_url="../index.search.js";var root_url="../",baseUriFull,baseUri=root_url.replace(/\/$/,"");window.T_Copy_to_clipboard="Copy to clipboard",window.T_Copied_to_clipboard="Copied to clipboard!",window.T_Copy_link_to_clipboard="Copy link to clipboard",window.T_Link_copied_to_clipboard="Copied link to clipboard!",window.T_No_results_found="No results found for \u0022{0}\u0022",window.T_N_results_found="{1} results found for \u0022{0}\u0022",baseUriFull="https://fortinetcloudcse.github.io/UserRepo/",window.variants&&variants.init(["Workshop"])</script><style>:root{--fortinet-white:255,255,255;--fortinet-black:0,0,0;--fortinet-red:218,41,28;--fortinet-blue:48,127,226;--fortinet-green:72,213,151;--fortinet-teel:44,204,211;--fortinet-purple:144,99,205;--fortinet-silver:162, 178, 200;--fortinet-silver-jeffMAC:159, 178, 199;--fortinet-silver70:77, 92, 102;--fortinet-lightgray:228, 228, 228;--fortinet-gray:179, 179, 179;--PRIMARY-color:rgb(var(--theme-color)) !important;--MAIN-BG-color:rgb(var(--fortinet-white)) !important;--MAIN-TEXT-color:rgb(var(--fortinet-black)) !important;--MAIN-font:inter !important;--MAIN-LINK-color:#1C90F3 !important;--LINK-HOVER-color:#167ad0 !important;--MENU-SECTIONS-ACTIVE-BG-color:rgb(var(--fortinet-black)) !important;--MENU-SECTIONS-BG-color:#312525;--MENU-SECTIONS-LINK-color:#ccc !important;--MENU-SECTIONS-LINK-HOVER-color:#e6e6e6 !important;--MENU-SECTION-ACTIVE-CATEGORY-color:#777;--MENU-SECTION-ACTIVE-CATEGORY-BG-color:#fff;--MENU-HEADER-BG-color:rgb(var(--theme-color)) !important;--MENU-SEARCH-color:rgba(var(--fortinet-white)) !important;--MENU-VISITED-color:rgb(var(--theme-color)) !important;*home link text color */ --MENU-HOME-LINK-color: #ccc !important;--MENU-HOME-LINK-HOVER-color:rgba(var(--fortinet-white)) !important;--BOX-WARNING-color:rgb(var(--fortinet-red)) !important;--BOX-NOTE-color:rgb(var(--fortinet-teel)) !important;--BOX-TIP-color:rgb(var(--fortinet-green)) !important;--BOX-INFO-color:rgb(var(--fortinet-blue)) !important;--CODE-BLOCK-color:#e2e4e5 !important;--CODE-BLOCK-BG-color:rgb(var(--fortinet-gray)) !important;--CODE-BLOCK-BORDER-color:#282a36 !important;--CODE-INLINE-color:#5e5e5e !important;--CODE-INLINE-BG-color:#fffae9 !important;--CODE-INLINE-BORDER-color:#f8e8c8 !important;--BROWSER-theme:light;--MERMAID-theme:default;--SWAGGER-theme:light}::placeholder{color:rgb(var(--fortinet-white))!important;opacity:1}:-ms-input-placeholder{color:rgb(var(--fortinet-white))!important}::-ms-input-placeholder{color:rgb(var(--fortinet-white))!important}#title{font-size:2.2rem;color:rgb(var(--fortinet-white))!important}#subtitle{font-size:1rem;color:rgb(var(--fortinet-white))!important}#sidebar .searchbox>:first-child,#sidebar .searchbox button,.searchbox span{opacity:1}.searchbox{border:1px solid rgba(var(--theme-color),.85)!important}.searchbox input{background:rgba(var(--theme-color),.75)!important}#header #logo{display:flex;justify-content:space-around;flex-direction:column}@media screen and (min-width:1300px){#body .flex-block-wrapper{margin-left:auto;margin-right:auto;max-width:1300px;width:100%}}</style></head><body class="mobile-support html" data-url=../06chapter6/12_task11.html><div id=body class=default-animation><div id=sidebar-overlay></div><div id=toc-overlay></div><nav id=topbar class=highlightable><div><div class=navigation><a class="nav nav-next topbar-link" href=../06chapter6/13_task12.html title="Task 12 - cFOS REST API to delete firewall policy (&#129106;)"><i class="fas fa-chevron-right fa-fw"></i></a></div><div class=navigation><a class="nav nav-prev topbar-link" href=../06chapter6/11_task10.html title="Task 10 - Perform Web Filter test for 3rd time on a target website (&#129104;)"><i class="fas fa-chevron-left fa-fw"></i></a></div><div id=breadcrumbs><span id=sidebar-toggle-span><a href=# id=sidebar-toggle class=topbar-link title='Menu (CTRL+ALT+n)'><i class="fas fa-bars fa-fw"></i></a></span>
+<span id=toc-menu title='Table of Contents (CTRL+ALT+t)'><i class="fas fa-list-alt fa-fw"></i></span><ol class=links itemscope itemtype=http://schema.org/BreadcrumbList><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><a itemprop=item href=../index.html><span itemprop=name>Fortinet cFOS in GKE (Google Cloud)</span></a><meta itemprop=position content="1">></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><a itemprop=item href=../06chapter6.html><span itemprop=name>Chapter 6 - Validate Security features</span></a><meta itemprop=position content="2">></li><li itemscope itemtype=https://schema.org/ListItem itemprop=itemListElement><span itemprop=name>Task 11 - Install gatekeeperv3</span><meta itemprop=position content="3"></li></ol></div><div class="default-animation progress"><div class=toc-wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#cfos-rest-api-to-delete-firewall-policy>cFOS REST API to delete firewall policy</a></li><li><a href=#validate-the-result>Validate the result</a></li></ul></li></ul></nav></div></div></div></nav><main id=body-inner class="highlightable default" tabindex=-1><div class=flex-block-wrapper><div id=head-tags></div><article class=default><h1 id=task-11---install-gatekeeperv3>Task 11 - Install gatekeeperv3</h1><h3 id=cfos-rest-api-to-delete-firewall-policy>cFOS REST API to delete firewall policy</h3><p>in this template, include a session call targets. in the targets it use rego as policy engine language to parse the policy .
+we use repo function <em>http.send</em> to send API to cFOS. you only need deploy template once.</p><blockquote><p>Below command will install gatekeeper constraint template</p></blockquote><pre tabindex=0><code>filename=&#34;47_constraint_template.yml&#34;
+
+cat &lt;&lt; EOF &gt; $filename
+apiVersion: templates.gatekeeper.sh/v1beta1
+kind: ConstraintTemplate
+metadata:
+  name: k8segressnetworkpolicytocfosutmpolicy
+spec:
+  crd:
+    spec:
+      names:
+        kind: K8sEgressNetworkPolicyToCfosUtmPolicy
+      validation:
+        openAPIV3Schema:
+          properties:
+            message:
+              type: string
+            podcidr:
+              type: string
+            cfosegressfirewallpolicy:
+              type: string 
+            outgoingport:
+              type: string
+            utmstatus:
+              type: string
+            ipsprofile:
+              type: string
+            avprofile:
+              type: string
+            sslsshprofile:
+              type: string 
+            action:
+              type: string
+            srcintf:
+              type: string
+            firewalladdressapiurl:
+              type: string
+            firewallpolicyapiurl:
+              type: string
+            policyid :
+              type: string 
+            extraservice:
+              type: string 
+
+  targets:
+    - target: admission.k8s.gatekeeper.sh
+      rego: |
+        package k8segressnetworkpolicytocfosutmpolicy
+        import future.keywords.if
+        import future.keywords.in
+        import future.keywords.contains
+        
+        
+        services := {
+        &#34;HTTP&#34;: [&#34;TCP:80&#34;],
+        &#34;HTTPS&#34;: [&#34;TCP:443&#34;],
+        &#34;DNS&#34;: [&#34;UDP:53&#34;]
+        }
+
+        get_service(cfosservice) := msg1 {
+          protocol := input.review.object.spec.egress[_].ports[_].protocol 
+          port := sprintf(&#34;%v&#34;,[input.review.object.spec.egress[_].ports[_].port])
+          key := concat(&#34;:&#34;, [ protocol, port ])
+          some service; services[service][_] == key
+          test := { service }
+          cfosservice in test
+          msg1 := cfosservice
+         }
+
+        myservice[{
+           &#34;name&#34; : get_service(&#34;HTTPS&#34;)
+          }] {
+               1==1
+         }
+        myservice[{
+           &#34;name&#34; : get_service(&#34;HTTP&#34;)
+          }] {
+               1==1
+         }
+        myservice[{
+           &#34;name&#34; : get_service(&#34;DNS&#34;)
+          }] {
+               1==1
+         }
+
+         myservice[{&#34;name&#34;:msg1}] {
+         input.parameters.extraservice==&#34;PING&#34;
+         msg1:=&#34;PING&#34;
+         }
+
+
+
+          violation[{
+            &#34;msg&#34; : msg 
+          }] {
+                          
+
+                          
+                          #the NetworkPolicy must has label under metadata which match the constraint
+                          input.review.object.metadata.labels.app==input.parameters.label
+                          
+                          
+                          #GET INPUT from reguar NetworkPolicy for cfos firewall policy
+                          namespace := input.review.object.metadata.namespace
+                          label := input.review.object.spec.podSelector.matchLabels.app
+                             t := concat(&#34;&#34;,[namespace,&#34;app&#34;])
+                          src_addr_group := concat(&#34;&#34;,[t,label])
+                          dstipblock :=  input.review.object.spec.egress[_].to[_].ipBlock.cidr
+                          policyname := input.review.object.metadata.name
+                          
+                          #GET INPUT from constraint template
+                          policyid := input.parameters.policyid 
+                          ipsprofile := input.parameters.ipsprofile
+                          avprofile := input.parameters.avprofile
+                          sslsshprofile := input.parameters.sslsshprofile
+                          action  := input.parameters.action
+                          srcintf := input.parameters.srcintf   
+                          utmstatus := input.parameters.utmstatus
+                          outgoingport := input.parameters.outgoingport
+                          
+                          
+                          #firewalladdressapiurl := input.parameters.firewalladdressapiurl
+                          firewallpolicyapiurl := input.parameters.firewallpolicyapiurl
+                          firewalladdrgrpapiurl := input.parameters.firewalladdressgrpapiurl
+        
+                            #Begin Update cfos AddrGrp
+                            #AddrGrp has an member with name &#34;none&#34;
+                                      
+                                      headers := {
+                                      &#34;Content-Type&#34;: &#34;application/json&#34;,
+                                      }
+                            
+                                      addrgrpbody := {
+                                        &#34;data&#34;:  {&#34;name&#34;: src_addr_group, &#34;member&#34;: [{&#34;name&#34;: &#34;none&#34;}]}
+                                      }
+                            
+                            
+                                      addrGroupResp := http.send({
+                                        &#34;method&#34;: &#34;POST&#34;,
+                                        &#34;url&#34;:  firewalladdrgrpapiurl,
+                                        &#34;headers&#34;: headers,
+                                        &#34;body&#34;: addrgrpbody
+                                      })
+                                      
+                            #End Update cfos AddrGrp
+
+                                      
+                            #Begin of Firewall Policy update
+                                      
+                                      firewallPolicybody := {
+                                        &#34;data&#34;: 
+                                          {&#34;policyid&#34;:policyid, 
+                                                  &#34;name&#34;: policyname, 
+                                                  &#34;srcintf&#34;: [{&#34;name&#34;: srcintf}], 
+                                                  &#34;dstintf&#34;: [{&#34;name&#34;: outgoingport}], 
+                                                  &#34;srcaddr&#34;: [{&#34;name&#34;: src_addr_group}],
+                                                    #&#34;service&#34;: [{&#34;name&#34;:&#34;ALL&#34;}],
+                                                  &#34;service&#34;: myservice,
+                                                  &#34;nat&#34;:&#34;enable&#34;,
+                                                  &#34;utm-status&#34;:utmstatus,
+                                                  &#34;action&#34;: &#34;accept&#34;,
+                                                  &#34;logtraffic&#34;: &#34;all&#34;,
+                                                  &#34;ssl-ssh-profile&#34;: sslsshprofile,
+                                                  &#34;ips-sensor&#34;: ipsprofile,
+                                                  &#34;webfilter-profile&#34;: &#34;default&#34;,
+                                                  &#34;av-profile&#34;: avprofile,
+                                                  &#34;dstaddr&#34;: [{&#34;name&#34;: &#34;all&#34;}]
+                                          }
+                                      }
+                                      
+                                      firewallPolicyResp := http.send({
+                                        &#34;method&#34;: &#34;POST&#34;,
+                                         &#34;url&#34;:firewallpolicyapiurl, 
+                                       &#34;headers&#34;: headers,
+                                         &#34;body&#34;: firewallPolicybody
+                                       })
+                                      
+                            #End of Firewall Policy Update       
+ 
+                      msg :=sprintf(  &#34;\n{%v %v  %v} &#34;, [
+                                                            addrGroupResp.status_code,
+                                                            firewallPolicyResp.status_code,
+                                                            myservice
+                                                    ]
+                                   )
+              } 
+
+EOF
+kubectl create -f $filename 
+kubectl get constrainttemplates -o yaml
+</code></pre><h3 id=validate-the-result>Validate the result</h3><pre tabindex=0><code>kubectl get constrainttemplates -o yaml
+</code></pre><blockquote><p>output will be similar as below</p></blockquote><pre tabindex=0><code>apiVersion: v1
+items:
+- apiVersion: templates.gatekeeper.sh/v1
+  kind: ConstraintTemplate
+  metadata:
+    creationTimestamp: &#34;2023-05-18T07:47:53Z&#34;
+    generation: 1
+    name: k8segressnetworkpolicytocfosutmpolicy
+    resourceVersion: &#34;6530&#34;
+    uid: f683bdf7-9564-464a-b494-3e5a1f752909
+  spec:
+    crd:
+      spec:
+        names:
+          kind: K8sEgressNetworkPolicyToCfosUtmPolicy
+        validation:
+          legacySchema: true
+          openAPIV3Schema:
+            properties:
+              action:
+                type: string
+              avprofile:
+                type: string
+              cfosegressfirewallpolicy:
+                type: string
+              extraservice:
+                type: string
+              firewalladdressapiurl:
+                type: string
+              firewallpolicyapiurl:
+                type: string
+              ipsprofile:
+                type: string
+              message:
+                type: string
+              outgoingport:
+                type: string
+              podcidr:
+                type: string
+              policyid:
+                type: string
+              srcintf:
+                type: string
+              sslsshprofile:
+                type: string
+              utmstatus:
+                type: string
+    targets:
+    - rego: &#34;package k8segressnetworkpolicytocfosutmpolicy\nimport future.keywords.if\nimport
+        future.keywords.in\nimport future.keywords.contains\n\n\nservices := {\n\&#34;HTTP\&#34;:
+        [\&#34;TCP:80\&#34;],\n\&#34;HTTPS\&#34;: [\&#34;TCP:443\&#34;],\n\&#34;DNS\&#34;: [\&#34;UDP:53\&#34;]\n}\n\nget_service(cfosservice)
+        := msg1 {\n  protocol := input.review.object.spec.egress[_].ports[_].protocol
+        \n  port := sprintf(\&#34;%v\&#34;,[input.review.object.spec.egress[_].ports[_].port])\n
+        \ key := concat(\&#34;:\&#34;, [ protocol, port ])\n  some service; services[service][_]
+        == key\n  test := { service }\n  cfosservice in test\n  msg1 := cfosservice\n
+        }\n\nmyservice[{\n   \&#34;name\&#34; : get_service(\&#34;HTTPS\&#34;)\n  }] {\n       1==1\n
+        }\nmyservice[{\n   \&#34;name\&#34; : get_service(\&#34;HTTP\&#34;)\n  }] {\n       1==1\n
+        }\nmyservice[{\n   \&#34;name\&#34; : get_service(\&#34;DNS\&#34;)\n  }] {\n       1==1\n
+        }\n\n myservice[{\&#34;name\&#34;:msg1}] {\n input.parameters.extraservice==\&#34;PING\&#34;\n
+        msg1:=\&#34;PING\&#34;\n }\n\n\n\n  violation[{\n    \&#34;msg\&#34; : msg \n  }] {\n                  \n\n
+        \                 \n                  #the NetworkPolicy must has label under
+        metadata which match the constraint\n                  input.review.object.metadata.labels.app==input.parameters.label\n
+        \                 \n                  \n                  #GET INPUT from
+        reguar NetworkPolicy for cfos firewall policy\n                  namespace
+        := input.review.object.metadata.namespace\n                  label := input.review.object.spec.podSelector.matchLabels.app\n
+        \                    t := concat(\&#34;\&#34;,[namespace,\&#34;app\&#34;])\n                  src_addr_group
+        := concat(\&#34;\&#34;,[t,label])\n                  dstipblock :=  input.review.object.spec.egress[_].to[_].ipBlock.cidr\n
+        \                 policyname := input.review.object.metadata.name\n                  \n
+        \                 #GET INPUT from constraint template\n                  policyid
+        := input.parameters.policyid \n                  ipsprofile := input.parameters.ipsprofile\n
+        \                 avprofile := input.parameters.avprofile\n                  sslsshprofile
+        := input.parameters.sslsshprofile\n                  action  := input.parameters.action\n
+        \                 srcintf := input.parameters.srcintf   \n                  utmstatus
+        := input.parameters.utmstatus\n                  outgoingport := input.parameters.outgoingport\n
+        \                 \n                  \n                  #firewalladdressapiurl
+        := input.parameters.firewalladdressapiurl\n                  firewallpolicyapiurl
+        := input.parameters.firewallpolicyapiurl\n                  firewalladdrgrpapiurl
+        := input.parameters.firewalladdressgrpapiurl\n\n                    #Begin
+        Update cfos AddrGrp\n                    #AddrGrp has an member with name
+        \&#34;none\&#34;\n                              \n                              headers
+        := {\n                              \&#34;Content-Type\&#34;: \&#34;application/json\&#34;,\n
+        \                             }\n                    \n                              addrgrpbody
+        := {\n                                \&#34;data\&#34;:  {\&#34;name\&#34;: src_addr_group,
+        \&#34;member\&#34;: [{\&#34;name\&#34;: \&#34;none\&#34;}]}\n                              }\n                    \n
+        \                   \n                              addrGroupResp := http.send({\n
+        \                               \&#34;method\&#34;: \&#34;POST\&#34;,\n                                \&#34;url\&#34;:
+        \ firewalladdrgrpapiurl,\n                                \&#34;headers\&#34;: headers,\n
+        \                               \&#34;body\&#34;: addrgrpbody\n                              })\n
+        \                             \n                    #End Update cfos AddrGrp\n\n
+        \                             \n                    #Begin of Firewall Policy
+        update\n                              \n                              firewallPolicybody
+        := {\n                                \&#34;data\&#34;: \n                                  {\&#34;policyid\&#34;:policyid,
+        \n                                          \&#34;name\&#34;: policyname, \n                                          \&#34;srcintf\&#34;:
+        [{\&#34;name\&#34;: srcintf}], \n                                          \&#34;dstintf\&#34;:
+        [{\&#34;name\&#34;: outgoingport}], \n                                          \&#34;srcaddr\&#34;:
+        [{\&#34;name\&#34;: src_addr_group}],\n                                            #\&#34;service\&#34;:
+        [{\&#34;name\&#34;:\&#34;ALL\&#34;}],\n                                          \&#34;service\&#34;:
+        myservice,\n                                          \&#34;nat\&#34;:\&#34;enable\&#34;,\n
+        \                                         \&#34;utm-status\&#34;:utmstatus,\n                                          \&#34;action\&#34;:
+        \&#34;accept\&#34;,\n                                          \&#34;logtraffic\&#34;: \&#34;all\&#34;,\n
+        \                                         \&#34;ssl-ssh-profile\&#34;: sslsshprofile,\n
+        \                                         \&#34;ips-sensor\&#34;: ipsprofile,\n                                          \&#34;webfilter-profile\&#34;:
+        \&#34;default\&#34;,\n                                          \&#34;av-profile\&#34;: avprofile,\n
+        \                                         \&#34;dstaddr\&#34;: [{\&#34;name\&#34;: \&#34;all\&#34;}]\n
+        \                                 }\n                              }\n                              \n
+        \                             firewallPolicyResp := http.send({\n                                \&#34;method\&#34;:
+        \&#34;POST\&#34;,\n                                 \&#34;url\&#34;:firewallpolicyapiurl,
+        \n                               \&#34;headers\&#34;: headers,\n                                 \&#34;body\&#34;:
+        firewallPolicybody\n                               })\n                              \n
+        \                   #End of Firewall Policy Update       \n\n              msg
+        :=sprintf(  \&#34;\\n{%v %v  %v} \&#34;, [\n                                                    addrGroupResp.status_code,\n
+        \                                                   firewallPolicyResp.status_code,\n
+        \                                                   myservice\n                                            ]\n
+        \                          )\n      } \n&#34;
+      target: admission.k8s.gatekeeper.sh
+  status:
+    created: false
+kind: List
+metadata:
+  resourceVersion: &#34;&#34;
+  selfLink: &#34;&#34;
+</code></pre><footer class=footline></footer></article></div></main></div><aside id=sidebar class="default-animation showVisitedLinks"><div id=header-wrapper class=default-animation><div id=header class=default-animation><a id=logo href=../index.html title="Fortinet TEC Program"><img style=vertical-align:middle src=../images/white-logo.svg height=70px>
+<logobanner id=title>Workshop</logobanner>
+<logobannerfreeform id=subtitle>sample sub-banner text</logobannerfreeform></a></div><form action=../search.html method=get><div class="searchbox default-animation"><button type=submit title="Search (CTRL+ALT+f)"><i class="fas fa-search"></i></button>
+<label class=a11y-only for=search-by>Search</label>
+<input data-search-input id=search-by name=search-by class=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div></form><script>var contentLangs=["en"]</script><script src=../js/auto-complete.js?1690474234 defer></script>
+<script src=../js/lunr/lunr.min.js?1690474234 defer></script>
+<script src=../js/lunr/lunr.stemmer.support.min.js?1690474234 defer></script>
+<script src=../js/lunr/lunr.multi.min.js?1690474234 defer></script>
+<script src=../js/lunr/lunr.en.min.js?1690474234 defer></script>
+<script src=../js/search.js?1690474234 defer></script></div><div id=content-wrapper class=highlightable><ul class="topics enlarge morespace collapsible-menu"><li data-nav-id=/01.html><input type=checkbox id=section-92408bf97df291ada27d65e86b87f217 aria-controls=subsections-92408bf97df291ada27d65e86b87f217><label for=section-92408bf97df291ada27d65e86b87f217><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 1 - Getting Started</span></label><a class=padding href=../01.html>Chapter 1 - Getting Started<i class="fas fa-check read-icon"></i></a><ul id=subsections-92408bf97df291ada27d65e86b87f217 class="morespace collapsible-menu"><li data-nav-id=/01/2_validateproject.html><a class=padding href=../01/2_validateproject.html>Validate Project & APIs<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/01/3_task2.html><a class=padding href=../01/3_task2.html>Setup Google Cloud Shell<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/02chapter2.html><input type=checkbox id=section-62c2fe3114373324bebc69d927c3d721 aria-controls=subsections-62c2fe3114373324bebc69d927c3d721><label for=section-62c2fe3114373324bebc69d927c3d721><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 2: Create GKE Cluster</span></label><a class=padding href=../02chapter2.html>Chapter 2: Create GKE Cluster<i class="fas fa-check read-icon"></i></a><ul id=subsections-62c2fe3114373324bebc69d927c3d721 class="morespace collapsible-menu"><li data-nav-id=/02chapter2/2_task1.html><a class=padding href=../02chapter2/2_task1.html>Create VPC Network<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/02chapter2/3_task2.html><a class=padding href=../02chapter2/3_task2.html>Validate VPC Network<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/02chapter2/4_task3.html><a class=padding href=../02chapter2/4_task3.html>Create GKE Cluster<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/02chapter2/5_task4.html><a class=padding href=../02chapter2/5_task4.html>Validate GKE Cluster<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/02chapter2/6_task5.html><a class=padding href=../02chapter2/6_task5.html>Enable ipforwarding<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/03chapter3.html><input type=checkbox id=section-3b9afd005e5607fd2ea5f93bc999e00a aria-controls=subsections-3b9afd005e5607fd2ea5f93bc999e00a><label for=section-3b9afd005e5607fd2ea5f93bc999e00a><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 3 - Multus CNI</span></label><a class=padding href=../03chapter3.html>Chapter 3 - Multus CNI<i class="fas fa-check read-icon"></i></a><ul id=subsections-3b9afd005e5607fd2ea5f93bc999e00a class="morespace collapsible-menu"><li data-nav-id=/03chapter3/2_task1.html><a class=padding href=../03chapter3/2_task1.html>Install Multus CNI<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/03chapter3/3_task2.html><a class=padding href=../03chapter3/3_task2.html>Validate Multus CNI installation<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/03chapter3/4_task3.html><a class=padding href=../03chapter3/4_task3.html>Create net-attach-def for cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/03chapter3/5_task4.html><a class=padding href=../03chapter3/5_task4.html>Validate net-attach-def<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/03chapter3/6_task5.html><a class=padding href=../03chapter3/6_task5.html>Create net-attach-def for application<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/03chapter3/7_task6.html><a class=padding href=../03chapter3/7_task6.html>Validate net-attach-def<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/04chapter4.html><input type=checkbox id=section-0ad1b20f365a7a08d8b040b7eea71223 aria-controls=subsections-0ad1b20f365a7a08d8b040b7eea71223><label for=section-0ad1b20f365a7a08d8b040b7eea71223><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 4 - Demo application</span></label><a class=padding href=../04chapter4.html>Chapter 4 - Demo application<i class="fas fa-check read-icon"></i></a><ul id=subsections-0ad1b20f365a7a08d8b040b7eea71223 class="morespace collapsible-menu"><li data-nav-id=/04chapter4/2_task1.html><a class=padding href=../04chapter4/2_task1.html>Create Demo Application deployment<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/04chapter4/3_task2.html><a class=padding href=../04chapter4/3_task2.html>Validate Demo Application deployment<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/05chapter5.html><input type=checkbox id=section-e6dee3aff1589a8c2c1fd28db3504800 aria-controls=subsections-e6dee3aff1589a8c2c1fd28db3504800><label for=section-e6dee3aff1589a8c2c1fd28db3504800><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 5 - cFOS Installation</span></label><a class=padding href=../05chapter5.html>Chapter 5 - cFOS Installation<i class="fas fa-check read-icon"></i></a><ul id=subsections-e6dee3aff1589a8c2c1fd28db3504800 class="morespace collapsible-menu"><li data-nav-id=/05chapter5/2_task1.html><a class=padding href=../05chapter5/2_task1.html>Create Role and Service Account for cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/3_task2.html><a class=padding href=../05chapter5/3_task2.html>Validate Role and Service Account for cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/4_task3.html><a class=padding href=../05chapter5/4_task3.html>cFOS role and service account<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/5_task4.html><a class=padding href=../05chapter5/5_task4.html>Validate routing table and ip address<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/6_task5.html><a class=padding href=../05chapter5/6_task5.html>Validate cFOS license<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/7_task6.html><a class=padding href=../05chapter5/7_task6.html>Create configmap for cFOS to get firewall policy configuration<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/8_task7.html><a class=padding href=../05chapter5/8_task7.html>Validate cFOS log for retriving config from configmap<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/9_task8.html><a class=padding href=../05chapter5/9_task8.html>Restart cfos DaemonSet<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/10_task9.html><a class=padding href=../05chapter5/10_task9.html>Validate status of cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/11_task10.html><a class=padding href=../05chapter5/11_task10.html>Validate routing table and ip address of cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/05chapter5/12_task11.html><a class=padding href=../05chapter5/12_task11.html>Check ping result<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/06chapter6.html class=parent><input type=checkbox id=section-404c90cdd418fe3f5977e3ef3000458b aria-controls=subsections-404c90cdd418fe3f5977e3ef3000458b checked><label for=section-404c90cdd418fe3f5977e3ef3000458b><i class="fas fa-chevron-down"></i><i class="fas fa-chevron-right"></i><span class=a11y-only>Submenu Chapter 6 - Validate Security features</span></label><a class=padding href=../06chapter6.html>Chapter 6 - Validate Security features<i class="fas fa-check read-icon"></i></a><ul id=subsections-404c90cdd418fe3f5977e3ef3000458b class="morespace collapsible-menu"><li data-nav-id=/06chapter6/2_task1.html><a class=padding href=../06chapter6/2_task1.html>Perform IPS test on a target website<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/3_task2.html><a class=padding href=../06chapter6/3_task2.html>Perform Web Filter test on a target website<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/4_task3.html><a class=padding href=../06chapter6/4_task3.html>Delete firewall policy using cFOS API<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/5_task4.html><a class=padding href=../06chapter6/5_task4.html>Create an POD to update POD source IP to cFOS<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/6_task5.html><a class=padding href=../06chapter6/6_task5.html>Perform IPS test again on a target website<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/7_task6.html><a class=padding href=../06chapter6/7_task6.html>Perform Web Filter test again on a target website<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/8_task7.html><a class=padding href=../06chapter6/8_task7.html>Modify Worker Node default CNI<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/9_task8.html><a class=padding href=../06chapter6/9_task8.html>Delete application deployment<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/10_task9.html><a class=padding href=../06chapter6/10_task9.html>Create application deployment<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/11_task10.html><a class=padding href=../06chapter6/11_task10.html>Perform Web Filter test for 3rd time on a target website<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/12_task11.html class=active><a class=padding href=../06chapter6/12_task11.html>Install gatekeeperv3<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/13_task12.html><a class=padding href=../06chapter6/13_task12.html>cFOS REST API to delete firewall policy<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/14_task13.html><a class=padding href=../06chapter6/14_task13.html>Deploy Network Policy<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/15_task14.html><a class=padding href=../06chapter6/15_task14.html>Perform IPS test<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/16_task15.html><a class=padding href=../06chapter6/16_task15.html>Install & Validate gatekeeperv3<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/17_task16.html><a class=padding href=../06chapter6/17_task16.html>Install Policy Constraint<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/18_task17.html><a class=padding href=../06chapter6/18_task17.html>Re-start application deployment<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/06chapter6/19_task18.html><a class=padding href=../06chapter6/19_task18.html>Perform Web Filter test<i class="fas fa-check read-icon"></i></a></li></ul></li></ul><div id=shortcuts><div class="nav-title padding">Helpful Resources</div><ul class=space><li><a class=padding target=_blank rel="noreferrer noopener" href=https://github.com/FortinetCloudCSE><i class='fas fa-graduation-cap'></i> Fortinet Cloud CSE GitHub Org</a></li><li><a class=padding target=_blank rel="noreferrer noopener" href=https://fortinetcloudcse.github.io/UserRepo><i class='fas fa-tools'></i>Fortinet Standard Workshop Guide</a></li><li><a class=padding target=_blank rel="noreferrer noopener" href=https://github.com/FortinetCloudCSE/UserRepo><i class='fas fa-tools'></i>Fortinet Standard Workshop Template Repo</a></li><li><a class=padding target=_blank rel="noreferrer noopener" href=https://mcshelby.github.io/hugo-theme-relearn/index.html><i class='fas fa-tools'></i> Hugo reLearn theme - Guide</a></li><li><a class=padding target=_blank rel="noreferrer noopener" href=https://aws-samples.github.io/aws-modernization-workshop-sample/><i class='fas fa-graduation-cap'></i> AWS Sample Workshop</a></li></ul></div><div class="padding footermargin footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showVisitedLinks showFooter"></div><hr class="padding default-animation footerLangSwitch footerVariantSwitch footerVisitedLinks footerFooter showVisitedLinks showFooter"><div id=prefooter class="footerLangSwitch footerVariantSwitch footerVisitedLinks showVisitedLinks"><ul><li id=select-language-container class=footerLangSwitch><div class="padding select-container"><i class="fas fa-language fa-fw"></i>
+<span>&nbsp;</span><div class=select-style><label class=a11y-only for=select-language>Language</label>
+<select id=select-language onchange="location=baseUri+this.value"></select></div><div class=select-clear></div></div></li><li id=select-variant-container class=footerVariantSwitch><div class="padding select-container"><i class="fas fa-paint-brush fa-fw"></i>
+<span>&nbsp;</span><div class=select-style><label class=a11y-only for=select-variant>Theme</label>
+<select id=select-variant onchange=window.variants&&variants.changeVariant(this.value)><option id=Workshop value=Workshop selected>Workshop</option></select></div><div class=select-clear></div></div><script>window.variants&&variants.markSelectedVariant()</script></li><li class="footerVisitedLinks showVisitedLinks"><button class=padding onclick=clearHistory()><i class="fas fa-history fa-fw"></i><span>&nbsp;</span>Clear History</button></li></ul></div><div id=footer class="footerFooter showFooter"><style>#footer{font-size:.8125rem;height:6.25rem;margin-left:auto;margin-right:auto;padding:2rem 1rem;text-align:center;min-width:14.375rem;max-width:18.75rem}#footer p{margin:0}</style><left><a href=https://www.fortinet.com/corporate/about-us/privacy target=_blank rel="noreferrer noopener">Privacy</a> | <a href=https://www.fortinet.com/corporate/about-us/legal target=_blank rel="noreferrer noopener">Site Terms</a> | <a href=https://www.fortinet.com/corporate/about-us/about-us target=_blank rel="noreferrer noopener">About Us</a></left></div></div></aside><script src=../js/clipboard.min.js?1690474234 defer></script>
+<script src=../js/perfect-scrollbar.min.js?1690474234 defer></script>
+<script src=../js/theme.js?1690474234 defer></script></body></html>

@@ -9,12 +9,13 @@ weight: 1
 1. We need to install Multus CNI to route traffic from application POD to cFOS POD.
 
 2. By default, GKE come with default CNI which uses ptp binary with host-local ipam. 
-    * The default CNI config has name **10-containerd-net.conflist**. 
-    * When we install Multus, the default Multus config will use *"--multus-conf-file=auto"*. 
-    * With the above option, Multus will automatically create 00-multus.conf file with delegate to default 10-containerd-net.conflist. 
+    * The default CNI config has name **10-containerd-net.conflist**
+    * When we install Multus, the default Multus config will use **--multus-conf-file=auto**
+    * With the above option, Multus will automatically create **00-multus.conf** file with delegate to default **10-containerd-net.conflist**
 
-3. we  need to change default Multus config *path: /home/kubernetes/bin* . this is because GKE only grant this directory with write permission.
-each worker node will have one Multus POD installed.
+3. We need to change default Multus config **path: /home/kubernetes/bin**. This is because GKE will only grant this directory with write permission.
+
+4. Each Worker node will have one Multus POD installed.
 
 {{< notice info >}}
     For the demo application, we will use default behavior.
@@ -24,12 +25,11 @@ each worker node will have one Multus POD installed.
 
 ```
 file="multus_auto.yml"
-#multusconfig="/tmp/multus-conf/07-multus.conf" 
 multusconfig="auto"
 multus_bin_hostpath="/home/kubernetes/bin"
 cat << EOF > $file
 # Note:
-#   This deployment file is designed for 'quickstart' of Multus, easy installation to test it,
+#   This deployment file is designed for 'quickstart' of multus, easy installation to test it,
 #   hence this deployment yaml does not care about following things intentionally.
 #     - various configuration options
 #     - minor deployment scenario
@@ -278,4 +278,7 @@ EOF
 kubectl create -f $file
 kubectl rollout status ds/kube-multus-ds -n kube-system
 ```
-  
+
+> output will be similar as below
+
+![envOutput](multus-installation.png)

@@ -1,35 +1,87 @@
 ---
-title: "Task 2 - Validate Role and Service Account for cFOS"
-menuTitle: "Validate Role and Service Account for cFOS"
+title: "Task 2 - Create Role and Service Account for cFOS"
+menuTitle: "Create Role and Service Account for cFOS"
 weight: 2
 ---
 
-### Validate Role and Service Account for cFOS
+### Create & Validate Role and Service Account for cFOS
 
-Validate Role and Service Account for cFOS
+1. cFOS will require to read configmap permission to get license and also cFOS will require read-secrets permission to get secret to pull cFOS image.
 
-    ```
-    kubectl get rolebinding read-configmaps && kubectl get rolebinding read-secrets -o yaml
-    ```
+> Below command will create cFOS Role and Service Account
 
-    > output will be similar as below
+```
+file="cfos_account.yml" 
+cat << EOF > $file
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  namespace: default
+  name: configmap-reader
+rules:
+- apiGroups: [""]
+  resources: ["configmaps"]
+  verbs: ["get", "watch", "list"]
 
-    ```
-    NAME              ROLE                           AGE
-    read-configmaps   ClusterRole/configmap-reader   0s
-    apiVersion: rbac.authorization.k8s.io/v1
-    kind: RoleBinding
-    metadata:
-        creationTimestamp: "2023-05-18T07:42:04Z"
-        name: read-secrets
-        namespace: default
-        resourceVersion: "2972"
-        uid: b70f038e-b9ec-4440-bebe-5ea0ed06f7c8
-    roleRef:
-        apiGroup: rbac.authorization.k8s.io
-        kind: ClusterRole
-        name: secrets-reader
-    subjects:
-    - kind: ServiceAccount
-        name: default    
-  ```
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-configmaps
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: default
+  apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: configmap-reader
+  apiGroup: ""
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+   namespace: default
+   name: secrets-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["secrets"]
+  verbs: ["get", "watch", "list"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-secrets
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: default
+  apiGroup: ""
+roleRef:
+  kind: ClusterRole
+  name: secrets-reader
+  apiGroup: ""
+EOF
+
+kubectl create -f $file1. 
+```
+
+> output will be similar as below
+
+![envOutput](cfos-role-sa.png)
+
+2. Validate output
+
+```
+kubectl get rolebinding read-configmaps && kubectl get rolebinding read-secrets -o yaml
+```
+
+> output will be similar as below
+
+![envOutput](v-cfos-role-sa.png)

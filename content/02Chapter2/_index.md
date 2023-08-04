@@ -8,8 +8,7 @@ weight: 20
 
 Tasks
 
-* Create VPC Network for GKE Cluster 
-* Validate VPC Network, Subnets and Firewall-rules
+* Create & Validate VPC Network for GKE Cluster 
 * Create GKE Cluster
 * Validate GKE Cluster
 * Enable 'ipforwarding' on Worker node 

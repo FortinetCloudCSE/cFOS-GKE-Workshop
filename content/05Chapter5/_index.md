@@ -8,14 +8,11 @@ weight: 50
 
 Tasks
 
-* Create Role and Service Account for cFOS
-* Validate Role and Service Account for cFOS
-* Create & Validate cfos role and service account
-* Validate routing table and ip address
+* Create and apply license for cFOS
+* Create & Validate Role and Service Account for cFOS
+* Create & Validate cFOS DaemonSet
+* Check Routing Table and IP Address
 * Validate cFOS license
-* Create configmap for cFOS to get firewall policy configuration
-* Validate cFOS log for retriving config from configmap
-* Re-start cfos DaemonSet
-* Validate deployment status of cFOS
-* Validate routing table and ip address of cFOS
+* Create configmap for cFOS to configure firewall policy
+* Restart & Validate cFOS DaemonSet
 * Check ping result

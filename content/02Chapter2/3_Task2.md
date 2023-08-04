@@ -1,103 +1,60 @@
 ---
-title: "Task 2 - Validate VPC Network"
-menuTitle: "Validate VPC Network"
+title: "Task 2 - Create GKE Cluster"
+menuTitle: "Create GKE Cluster"
 weight: 2
 ---
 
-### Validate VPC Network, Subnets and Firewall-rules
+### Create GKE Cluster
 
-1. Validate VPC Network
+> Below configuration attributes need to be set
 
-    ```
-    gcloud compute networks list --format json --filter gke
-    ```
+   - *enable-ip-alias* will enable to use alias ip on VM for POD IP Address
 
-    > output will be similar as below
+   - *service-ipv4-cidr* is the CIDR for clusterVIP Address
 
-    ```
-    [
-        {
-            "autoCreateSubnetworks": false,
-            "creationTimestamp": "2023-05-18T00:32:47.108-07:00",
-            "id": "7011832803059329648",
-            "kind": "compute#network",
-            "name": "gkenetwork1",
-            "networkFirewallPolicyEnforcementOrder": "AFTER_CLASSIC_FIREWALL",
-            "routingConfig": {
-            "routingMode": "REGIONAL"
-            },
-            "selfLink": "https://www.googleapis.com/compute/v1/projects/cfos-384323/global/networks/gkenetwork1",
-            "selfLinkWithId": "https://www.googleapis.com/compute/v1/projects/cfos-384323/global/networks/7011832803059329648",
-            "subnetworks": [
-            "https://www.googleapis.com/compute/v1/projects/cfos-384323/regions/asia-east1/subnetworks/gkenode"
-            ],
-            "x_gcloud_bgp_routing_mode": "REGIONAL",
-            "x_gcloud_subnet_mode": "CUSTOM"
-        }
-    ]
-    ```
+   - *cluster-ipv4-cidr* is for POD IP Address scope
 
-2. Validate Subnets
+   - *kubectl get node -o wide* shall show whether the node is in ready state
 
-    ```
-    gcloud compute networks subnets list --format json --filter gke
-    ```
+> Below command will Create GKE Cluster 
 
-    > output will be similar as below
+```
+projectName=$(gcloud config list --format="value(core.project)")
+region=$(gcloud config get compute/region)
 
-    ```
-    [
-        {
-            "creationTimestamp": "2023-05-18T00:33:02.987-07:00",
-            "fingerprint": "UJPhD-8NtFU=",
-            "gatewayAddress": "10.0.0.1",
-            "id": "973775312268061249",
-            "ipCidrRange": "10.0.0.0/24",
-            "kind": "compute#subnetwork",
-            "name": "gkenode",
-            "network": "https://www.googleapis.com/compute/v1/projects/cfos-384323/global/networks/gkenetwork1",
-            "privateIpGoogleAccess": false,
-            "privateIpv6GoogleAccess": "DISABLE_GOOGLE_ACCESS",
-            "purpose": "PRIVATE",
-            "region": "https://www.googleapis.com/compute/v1/projects/cfos-384323/regions/asia-east1",
-            "selfLink": "https://www.googleapis.com/compute/v1/projects/cfos-384323/regions/asia-east1/subnetworks/gkenode",
-            "stackType": "IPV4_ONLY"
-        }
-    ]    
-    ```
+gcloud services enable container.googleapis.com  && 
+gcloud container clusters create my-first-cluster-1 \
+      --no-enable-basic-auth \
+	--cluster-version 1.26.5-gke.1400 \
+	--release-channel "stable" \
+	--machine-type e2-standard-2 \
+	--image-type "UBUNTU_CONTAINERD" \
+	--disk-type "pd-balanced" \
+	--disk-size "32" \
+	--metadata disable-legacy-endpoints=true \
+	--scopes "https://www.googleapis.com/auth/devstorage.read_only","https://www.googleapis.com/auth/logging.write","https://www.googleapis.com/auth/monitoring","https://www.googleapis.com/auth/servicecontrol","https://www.googleapis.com/auth/service.management.readonly","https://www.googleapis.com/auth/trace.append" \
+	--max-pods-per-node "110" \
+	--num-nodes 2 \
+	--enable-ip-alias \
+	--network "projects/$projectName/global/networks/gkenetwork" \
+	--subnetwork "projects/$projectName/regions/$region/subnetworks/gkenode" \
+	--no-enable-intra-node-visibility \
+	--default-max-pods-per-node "110" \
+	--no-enable-master-authorized-networks \
+	--addons HorizontalPodAutoscaling,HttpLoadBalancing,GcePersistentDiskCsiDriver \
+	--enable-autoupgrade \
+	--enable-autorepair \
+	--max-surge-upgrade 1 \
+	--max-unavailable-upgrade 0 \
+	--enable-shielded-nodes \
+	--services-ipv4-cidr 10.144.0.0/20 \
+	--cluster-ipv4-cidr  10.140.0.0/14
+```
 
-3. Validate Firewall-rules
+> output will be similar as below after completion
 
-    ```
-    gcloud compute firewall-rules list --format json --filter gke
-    ```
+![envOutput](gke-cluster-creation.png)
 
-    > output will be similar as below
+> Screenshot as in GUI
 
-    ```
-    [
-        {
-            "allowed": [
-            {
-                "IPProtocol": "all"
-            }
-            ],
-            "creationTimestamp": "2023-05-18T00:33:22.123-07:00",
-            "description": "",
-            "direction": "INGRESS",
-            "disabled": false,
-            "id": "7153549930505202221",
-            "kind": "compute#firewall",
-            "logConfig": {
-            "enable": false
-            },
-            "name": "gkenetwork1-allow-custom",
-            "network": "https://www.googleapis.com/compute/v1/projects/cfos-384323/global/networks/gkenetwork1",
-            "priority": 100,
-            "selfLink": "https://www.googleapis.com/compute/v1/projects/cfos-384323/global/firewalls/gkenetwork1-allow-custom",
-            "sourceRanges": [
-            "0.0.0.0/0"
-            ]
-        }
-    ]    
-    ```
+![envOutput](gke-cluster-gui.png)

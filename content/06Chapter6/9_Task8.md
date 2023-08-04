@@ -11,3 +11,7 @@ weight: 8
 ```
 kubectl get deployment multitool01-deployment && kubectl delete deployment multitool01-deployment
 ```
+
+> output will be similar as below
+
+![envOutput](delete-app.png)

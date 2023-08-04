@@ -1,76 +1,71 @@
 ---
-title: "Task 3 - Create & Validate cFOS role and service account"
-menuTitle: "cFOS role and service account"
+title: "Task 3 - Create cFOS DaemonSet"
+menuTitle: "Create cFOS DaemonSet"
 weight: 3
 ---
 
-### Create & Validate cFOS role and service account
+### Create & Validate cFOS DaemonSet
 
-We will create cFOS as DaemonSet, so each node will have single cFOS POD.
-cFOS will be attached to net-attach-def CRD which was created earlier.
-cFOS is configured as a ClusterIP service for restapi port.
-cFOS will use annotation to attach to net-attach-def CRD cfosdefaultcni5.
-k8s.v1.cni.cncf.io/networks means secondary network.
+1. Create cFOS as DaemonSet, so each node will have single cFOS POD.
+
+2. cFOS will be attached to net-attach-def CRD which was created earlier.
+
+3. cFOS is configured as a ClusterIP service for restapi port.
+
+4. cFOS will use annotation to attach to net-attach-def CRD cfosdefaultcni5.  
+*k8s.v1.cni.cncf.io/networks* means secondary network.  
 Default interface inside cFOS is net1.
-cFOS will have fixed IP 10.1.200.252/32 which is the range of CRD cni configuration.
-cFOS can also have a fixed mac address.
-Linux capabilities like NET_ADMIN, SYS_AMDIN, NET_RAW are required for ping, sniff and syslog.
-cFOS image will be pulled from Docker Hub with pull secret.
 
-> Below command will Create net-attach-def
+5. cFOS will have fixed IP **10.1.200.252/32** which is the range of CRD cni configuration.  
+cFOS can also have a fixed mac address.  
+Linux capabilities like NET_ADMIN, SYS_AMDIN, NET_RAW are required for ping, sniff and syslog.
+
+6. cFOS image will be pulled from Docker Hub with pull secret.
+
+> Below command will Create cFOS DaemonSet
 
 ```
-#!/bin/bash -xe 
-file="cfos_ds.yml" 
-[[ $cfos_image == "" ]] && cfos_image="interbeing/fos:v7231x86"
-[[ $cfosIp == "" ]] && cfosIp="10.1.200.252/32"
-[[ -z $cfos_label ]] && cfos_label="fos"
-[[ -z $cfos_data_host_path ]] && cfos_data_host_path="/home/kubernetes/cfosdata"
-
-
-annotations="k8s.v1.cni.cncf.io/networks: '[ { \"name\": \"$net_attach_def_name_for_cfos\",  \"ips\": [ \"$cfosIp\" ], \"mac\": \"CA:FE:C0:FF:00:02\" } ]'"
-
-cat << EOF > $file
+project=$(gcloud config list --format="value(core.project)")
+cat << EOF | kubectl create -f  -
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: $cfos_label
-  name: $cfos_label-deployment
+    app: fos
+  name: fos-deployment
   namespace: default
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
-  #sessionAffinity: ClientIP
   selector:
-    app: $cfos_label
+    app: fos
   type: ClusterIP
 ---
 
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: $cfos_label-deployment
+  name: fos-deployment
   labels:
-      app: $cfos_label
+      app: fos
 spec:
   selector:
     matchLabels:
-        app: $cfos_label
+        app: fos
   template:
     metadata:
       labels:
-        app: $cfos_label
+        app: fos
       annotations:
-        $annotations
+        k8s.v1.cni.cncf.io/networks: '[ { "name": "cfosdefaultcni5",  "ips": [ "10.1.200.252/32" ], "mac": "CA:FE:C0:FF:00:02" } ]'
         #k8s.v1.cni.cncf.io/networks: '[ { "name": "cfosdefaultcni5",  "ips": [ "10.1.200.252/32" ], "mac": "CA:FE:C0:FF:00:02" } ]'
     spec:
       containers:
-      - name: $cfos_label
-        image: $cfos_image
+      - name: fos
+        image: gcr.io/$project/fos:7231
         #image: 732600308177.dkr.ecr.ap-east-1.amazonaws.com/fos:v7231x86
         imagePullPolicy: Always
         securityContext:
@@ -88,22 +83,22 @@ spec:
         - mountPath: /data
           name: data-volume
       imagePullSecrets:
-      - name: dockerinterbeing
       volumes:
       - name: data-volume
         #persistentVolumeClaim:
           #claimName: filestore-pvc
         hostPath:
-          path: $cfos_data_host_path
+          path: /home/kubernetes/cfosdata
           type: DirectoryOrCreate
 EOF
-
-kubectl create -f $file  && \
-
-kubectl rollout status ds/$cfos_label-deployment && kubectl get pod -l app=$cfos_label
+kubectl rollout status ds/fos-deployment && kubectl get pod -l app=fos
 ```
 
-### Validate cfos role and service account
+> output will be similar as below
+
+![envOutput](cFOS-DaemonSet.png)
+
+7. Validate output
 
 ```
 kubectl rollout status ds/fos-deployment && kubectl get pod -l app=fos
@@ -111,9 +106,4 @@ kubectl rollout status ds/fos-deployment && kubectl get pod -l app=fos
 
 > output will be similar as below
 
-```
-daemon set "fos-deployment" successfully rolled out
-NAME                   READY   STATUS    RESTARTS   AGE
-fos-deployment-fc22v   1/1     Running   0          10s
-fos-deployment-jgqxg   1/1     Running   0          10s
-```
+![envOutput](v-cFOS-DaemonSet.png)

@@ -1,35 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fortinet cFOS in GKE (Google Cloud) on Hugo for Fortinet TECWorkshops</title><link>https://fortinetcloudcse.github.io/UserRepo/index.html</link><description>Recent content in Fortinet cFOS in GKE (Google Cloud) on Hugo for Fortinet TECWorkshops</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><atom:link href="https://fortinetcloudcse.github.io/UserRepo/index.xml" rel="self" type="application/rss+xml"/><item><title>Chapter 1 - Getting Started</title><link>https://fortinetcloudcse.github.io/UserRepo/01.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/01.html</guid><description>Fortinet GKE cFOS Workshop Chapter 1 - Provisioning the Google Cloud environment (40min) Provision your Google Cloud Environment, enter your Email address and click Provision
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Fortinet cFOS in GKE (Google Cloud) on Hugo for Fortinet TECWorkshops</title><link>https://fortinetcloudcse.github.io/UserRepo/index.html</link><description>Recent content in Fortinet cFOS in GKE (Google Cloud) on Hugo for Fortinet TECWorkshops</description><generator>Hugo -- gohugo.io</generator><language>en-US</language><atom:link href="https://fortinetcloudcse.github.io/UserRepo/index.xml" rel="self" type="application/rss+xml"/><item><title>Chapter 1 - Getting Started</title><link>https://fortinetcloudcse.github.io/UserRepo/01chapter1.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/01chapter1.html</guid><description>Fortinet GKE cFOS Workshop Chapter 1 - Provisioning the Google Cloud environment (40min) Provision your Google Cloud Environment, enter your Email address and click Provision
 Please enter your email address Provision Warning After submitting, this page will return with a blank email address box and no other indications. Provisioning can take several minutes. \*\*\* __PLEASE DO NOT SUBMIT MULTIPLE TIMES__ \*\*\* When provisioning is complete, one of the following will happen.</description></item><item><title>Chapter 2 - Create GKE Cluster</title><link>https://fortinetcloudcse.github.io/UserRepo/02chapter2.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/02chapter2.html</guid><description>Chapter 2: Create GKE Cluster Tasks
-Create VPC Network for GKE Cluster Validate VPC Network, Subnets and Firewall-rules Create GKE Cluster Validate GKE Cluster Enable &amp;lsquo;ipforwarding&amp;rsquo; on Worker node</description></item><item><title>Chapter 3 - Multus CNI Installation</title><link>https://fortinetcloudcse.github.io/UserRepo/03chapter3.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/03chapter3.html</guid><description>Chapter 3 - Install Multus CNI Tasks
-Install Multus CNI
-Validate Multus CNI installation
-Create net-attach-def for cFOS
-Validate net-attach-def
-Create net-attach-def for application
-Validate net-attach-def again
-Create Demo Application deployment
-Validate Demo Application
-Create Role and Service Account for cFOS
-Validate Role and Service Account for cFOS
-create cfos role and service account
-check the result
-check routing table and ip address
-check cfos license
-check the result
-check the result</description></item><item><title>Chapter 4 - Demo application deployment</title><link>https://fortinetcloudcse.github.io/UserRepo/04chapter4.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/04chapter4.html</guid><description>Chapter 4 - Create Demo application Tasks
-Create Demo Application deployment
-Validate Demo Application deployment
-Create Role and Service Account for cFOS
-Validate Role and Service Account for cFOS
-create cfos role and service account
-check the result
-check routing table and ip address
-check cfos license
-check the result
-check the result
-check deployment status of cFOS
-check cfos iptables entry
-check routing table and ip address
-check ping result</description></item><item><title>Chapter 5 - cFOS Installation</title><link>https://fortinetcloudcse.github.io/UserRepo/05chapter5.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/05chapter5.html</guid><description>Chapter 5 - cFOS Installation Tasks
-Create Role and Service Account for cFOS Validate Role and Service Account for cFOS Create &amp;amp; Validate cfos role and service account Validate routing table and ip address Validate cFOS license Create configmap for cFOS to get firewall policy configuration Validate cFOS log for retriving config from configmap Re-start cfos DaemonSet Validate deployment status of cFOS Validate routing table and ip address of cFOS Check ping result</description></item><item><title>Chapter 6 - Validate Security features</title><link>https://fortinetcloudcse.github.io/UserRepo/06chapter6.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/06chapter6.html</guid><description>Chapter 6 - Validate Security features Tasks
-Perform initial IPS test on a target website Perform initial Web Filter test on a target website Delete firewall policy using cFOS API Create an POD to update POD source IP to cFOS Perform IPS test again on a target website Perform Web Filter test again on a target website Modify Worker Node default CNI Delete current application deployment Create application deployment Perform Web Filter test for 3rd time on a target website cFOS REST API to delete firewall policy Install &amp;amp; Validate gatekeeperv3 Deploy &amp;amp; Validate Network Policy Perform IPS test for 3rd time on a target website Install &amp;amp; Validate gatekeeperv3 Install &amp;amp; Validate Policy Constraint Re-start application deployment Perform Web Filter test for 4th time on a target website Delete GKE Cluster</description></item></channel></rss>
+Create &amp;amp; Validate VPC Network for GKE Cluster Create GKE Cluster Validate GKE Cluster Enable &amp;lsquo;ipforwarding&amp;rsquo; on Worker node</description></item><item><title>Chapter 3 - Multus CNI Installation</title><link>https://fortinetcloudcse.github.io/UserRepo/03chapter3.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/03chapter3.html</guid><description>Chapter 3 - Install Multus CNI Tasks
+Install Multus CNI Validate Multus CNI installation Create &amp;amp; Validate net-attach-def for cFOS Create &amp;amp; Validate net-attach-def for application Validate net-attach-def again</description></item><item><title>Chapter 4 - Demo application deployment</title><link>https://fortinetcloudcse.github.io/UserRepo/04chapter4.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/04chapter4.html</guid><description>Chapter 4 - Create Demo application Tasks
+Create Demo Application deployment Validate Demo Application deployment</description></item><item><title>Chapter 5 - cFOS Installation</title><link>https://fortinetcloudcse.github.io/UserRepo/05chapter5.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/05chapter5.html</guid><description>Chapter 5 - cFOS Installation Tasks
+Create and apply license for cFOS Create &amp;amp; Validate Role and Service Account for cFOS Create &amp;amp; Validate cFOS DaemonSet Check Routing Table and IP Address Validate cFOS license Create configmap for cFOS to configure firewall policy Restart &amp;amp; Validate cFOS DaemonSet Check ping result</description></item><item><title>Chapter 6 - Validate Security features</title><link>https://fortinetcloudcse.github.io/UserRepo/06chapter6.html</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://fortinetcloudcse.github.io/UserRepo/06chapter6.html</guid><description>Chapter 6 - Validate Security features Tasks
+Perform initial IPS test
+Perform initial Web Filter test
+Delete firewall policy using cFOS API
+Create a POD to update POD source IP to cFOS
+Perform IPS test for 2nd time
+Perform Web Filter test for 2nd time
+Modify Worker Node default CNI
+Delete current application deployment
+Create application deployment
+Perform Web Filter test for 3rd time
+cFOS REST API to delete firewall policy</description></item></channel></rss>

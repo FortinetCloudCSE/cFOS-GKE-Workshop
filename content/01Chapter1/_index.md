@@ -12,15 +12,14 @@ Provision your Google Cloud Environment, enter your Email address and click _Pro
 
 <script>
     function formSubmit() {
-      alert('Called formSubmit1');
-      fetch ('https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision-test', {
+      fetch ('https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           'email': document.getElementById("useremail").value, 
-          'workshop': 'gke-cfos-workshop'
+          'workshop': 'cfos-gke'
         })
       })
       .then(response => response.text())

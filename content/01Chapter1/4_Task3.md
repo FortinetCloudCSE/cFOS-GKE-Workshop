@@ -20,7 +20,8 @@ weight: 3
 
     ```
     project=$(gcloud config list --format="value(core.project)")
-    gsutil cp gs://$project-cfos-bucket/FOS_X64_DOCKER-v7-build0231-FORTINET.tar .
+    gsutil cp gs://my-bucket-cfos-384323/FOS_X64_DOCKER-v7-build0231-FORTINET.tar .
+    #gzip -d FOS_X64_DOCKER-v7-build0231-FORTINET.tar.gz
     docker load < FOS_X64_DOCKER-v7-build0231-FORTINET.tar
     docker images | grep ^fos
     PROJECT_ID=$(gcloud config list --format="value(core.project)")

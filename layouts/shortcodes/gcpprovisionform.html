@@ -1,42 +1,41 @@
-<!DOCTYPE html>
-<html>
-  
-</html>
+<script>
+  function formSubmit() {
 
-<!-- <script>
-    function formSubmit() {
-  
-      var useremail = document.getElementById("useremail").value;
-      var postdata =
-        "email=" + useremail + "&workshop=gke-cfos-workshop";
-  
-      var xhr = new XMLHttpRequest();
-      xhr.open(
-        "POST",
-        "https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision",
-        false
-      );
-      xhr.setRequestHeader("Authorization", "bearer eyJhbGciOiJSUzI1NiIsImtpZCI6IjY3NmRhOWQzMTJjMzlhNDI5OTMyZjU0M2U2YzFiNmU2NTEyZTQ5ODMiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNjE4MTA0NzA4MDU0LTlyOXMxYzRhbGczNmVybGl1Y2hvOXQ1Mm4zMm42ZGdxLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTAwOTE1MDg5ODE1NDk3MTEzODI3IiwiaGQiOiJmb3J0aW5ldC5jb20iLCJlbWFpbCI6InNjaGl0dXBvbHVAZm9ydGluZXQuY29tIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsImF0X2hhc2giOiJ1YmwzekRHVXpldll1UTBwNm9jSklnIiwibmJmIjoxNjg5MDk3MjYxLCJpYXQiOjE2ODkwOTc1NjEsImV4cCI6MTY4OTEwMTE2MSwianRpIjoiNDQ1NGIxZGUwOTU0OTI1YmZkYWQyODUzYzE2NWM3ZmY1N2NlMmRjOSJ9.Tg5dRU-weZBgTtP6TXxzfkeJK_L5fl8AhJqaPxDbjZfMo6QC-vUEmG-iIgEPt0VTtVdrdUlUuI6Ckgn3stHtbkyTITAEh4etlmGKJgJECeNi1xt3BUJUlNf1au7N8Bt5aeCje-aBoPit0iiwPWQBbWyLJ6TGjbUwzQkZAxVPSFKg7gr__-y141n8XlZHmJZ5nfnIscF2s2nwLlebjrGSfvQipH0qEtMKSpW48-7pnx0H7vDNEJbCxVzIclgtdGhoRx9XYvTKPZbAsw59GtevqTPDm8K-tR1d24vYw70nbvHSaKpextw8MTjvXWNEkp12ED08tye6xR10XFPfpFhuBA");
-      xhr.setRequestHeader("Content-type", "application/json");
-      xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          alert("ok");
-          console.log(this.responseText);
-        }
-      };
-      xhr.onload = function () {
+    var useremail = document.getElementById("useremail").value;
+    var postdata =
+      "email=" + useremail + "&workshop=cfos-gke";
+      alert('useremail : ' + useremail);
+      alert('postdata : ' + postdata);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open(
+      "POST",
+      "https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision",
+      false
+    );
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Methods", "POST");
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        alert("ok");
         console.log(this.responseText);
-      };
-  
-      xhr.send(postdata);
-  
-      document.getElementById("useremail").setAttribute('value','Provisioning Started... An email will be sent to the provided address with status');
-      return false;
-    }
-  </script>
-  
-  <form id="provision-lab" onsubmit="return formSubmit();">
-    <label for="useremail">Please enter your email address</label>
-    <input type="email" id="useremail" name="useremail" value="" />
-    <input type="submit" value="Provision" />
-  </form> -->
+      }
+    };
+    xhr.onload = function () {
+      console.log(this.responseText);
+    };
+
+    xhr.send(postdata);
+
+    document.getElementById("useremail").setAttribute('value', 'Provisioning Started... An email will be sent to the provided address with status');
+    return false;
+  }
+</script>
+
+<form id="provision-lab" onsubmit="return formSubmit();">
+  <label for="useremail">Please enter your email address</label>
+  <input type="email" id="useremail" name="useremail" value="" />
+  <input type="submit" value="Provision" />
+</form>

@@ -9,36 +9,7 @@ weight: 10
 ### Chapter 1 - Provisioning the Google Cloud environment (40min)
 
 Provision your Google Cloud Environment, enter your Email address and click _Provision_
-
-<script>
-    function formSubmit() {
-      fetch ('https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          'email': document.getElementById("useremail").value, 
-          'workshop': 'cfos-gke'
-        })
-      })
-      .then(response => response.text())
-      .then(data => {
-        alert(data)
-        console.log(data);
-      })
-      .catch(error => {
-        alert('Error:' +error)
-        console.error('Error', error)
-      });
-    }
-  </script>
-<form id="provision-lab" onsubmit="return formSubmit();">
-    <label for="useremail">Please enter your email address</label>
-    <input type="email" id="useremail" name="useremail" value="" />
-    <button type="submit">Provision</button>
-</form>
-
+{{< gcpprovisionform >}}
 
 {{< notice warning >}} After submitting, this page will return with a blank email address box and no other indications.
 

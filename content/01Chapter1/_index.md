@@ -6,7 +6,7 @@ weight: 10
 
 ## Fortinet GKE cFOS Workshop
 
-### Chapter 1 - Provisioning the Google Cloud environment (40min)
+### Chapter 1 - Provisioning the Google Cloud environment (30min)
 
 Provision your Google Cloud Environment, enter your Email address and click _Provision_
 {{< gcpprovisionform >}}

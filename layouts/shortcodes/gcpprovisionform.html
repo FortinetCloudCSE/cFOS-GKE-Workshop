@@ -1,41 +1,37 @@
 <script>
   function formSubmit() {
-    alert('In formSubmit');
+    var useremail = document.getElementById("useremail").value;
+    var postdata =
+      "email=" + useremail + "&workshop=cfos-gke";
 
-    const params = {
-      email: document.getElementById('email').value,
-      workshop: 'cfos-gke'
-    }
-    alert('params : ' + JSON.stringify(params));
-    var postdata = "email=" + document.getElementById('email').value + "&workshop=cfos-gke";
-    alert('postdata : ' + postdata);
+    var xhr = new XMLHttpRequest();
+    xhr.open(
+      "POST",
+      "https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision",
+      true
+    );
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhr.setRequestHeader("Access-Control-Allow-Methods", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+    xhr.setRequestHeader("Access-Control-Allow-Headers", "*");
+    xhr.send(postdata);
 
-    var xhr = new XMLHttpRequest()
-    xhr.open('POST', 'https://us-central1-cse-us-341516.cloudfunctions.net/gcp-account-provision', false);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xhr.setRequestHeader('Access-Control-Allow-Methods', 'POST');
-    alert('XHR1 : ' + JSON.stringify(xhr));
     xhr.onreadystatechange = function () {
-      alert('In  onreadystatechange: ');
-      alert('XHR-readyState : ' + JSON.stringify(xhr.readyState));
-      alert('XHR-status : ' + JSON.stringify(xhr.status));
       if (xhr.readyState === 4 && xhr.status === 200) {
-        alert("ok");
-        var res = JSON.parse(xhr.response);
-        alert(res);
+        console.log('xhr.responseText : ' + xhr.responseText);
       }
     };
-    alert('XHR2 : ' + JSON.stringify(xhr));
-    xhr.send(postdata);
+    xhr.onload = function () {
+      console.log(xhr.responseText);
+    };
+    document.getElementById("useremail").setAttribute('value', 'Provisioning Started... An email will be sent to the provided address with status');
     return false;
   }
-
-  
 </script>
 
 <form id="provision-lab" onsubmit="return formSubmit();">
-  <label for="email">Please enter your email address</label>
-  <input type="email" id="email" name="email" value="" />
+  <label for="useremail">Please enter your email address</label>
+  <input type="email" id="useremail" name="useremail" value="" />
   <input type="submit" value="Provision" />
 </form>
+

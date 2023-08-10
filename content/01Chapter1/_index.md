@@ -4,7 +4,7 @@ weight: 1
 weight: 10
 ---
 
-## Fortinet GKE cFOS Workshop
+## Fortinet cFOS GKE Workshop
 
 ### Chapter 1 - Provisioning the Google Cloud environment (30min)
 
@@ -24,8 +24,16 @@ When provisioning is complete, one of the following will happen.
 * You will receive an email indicating that the supplied email address is from an unsupported domain.
 * No email received due to an unexpected error. You can try again or notify the Google Cloud CSE team.
 
+{{< notice note >}} You will be getting email to your GMAIL account with FORTINET domain.{{< /notice >}}
+
+> output will be similar as below
+
+![envOutput](new-email.png)
+
+![envOutput](email.png)
+
 Tasks
 
-* Validate Project & APIs
+* Validate Project
 * Setup Google Cloud Shell
 * Create Docker Image for cFOS

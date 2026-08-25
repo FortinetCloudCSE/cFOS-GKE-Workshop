@@ -1,0 +1,32 @@
+{
+    "repoName": "cFOS-GKE-Workshop",
+    "author": "",
+    "workshopTitle": "Fortinet cFOS on GKE in Google Cloud",
+    "themeVariant": "Workshop",
+    "logoBannerText": "",
+    "logoBannerSubText": "",
+    "errorLevel": "warning",
+    "googleServicesID": "G-5RZBH288ST",
+    "marketingCode": "",
+    "bannerLine1": "Workshop Type ID Eg: Public Cloud 101",
+    "bannerLine2": "Workshop Title Here",
+    "bannerLine3": "Subtitle,Description, or 3rd line Here",
+    "quizUrl": "https://publiccloud105-fortiflex-o32xpkqaca-uc.a.run.app",
+    "analyticsBaseUrl": "https://tecanalytics.forticloudcse.com",
+    "videoHeaderSrc": "/videos/CloudsAnimated.mp4",
+    "videoHeaderInterval": "60",
+    "shortcuts": [
+        {
+            "text": "Fortinet Container Security ",
+            "URL": "https://www.fortinet.com/content/dam/fortinet/assets/solution-guides/sb-container-security.pdf",
+            "icon": "fa-tools",
+            "weight": 20
+        },
+        {
+            "text": "Google Kubernetes Engine (GKE)",
+            "URL": "https://cloud.google.com/kubernetes-engine/docs",
+            "icon": "fa-tools",
+            "weight": 21
+        }
+    ]
+}
